@@ -1,1 +1,37 @@
+------------------------------------------------------------
+-- Update users current_plan
+------------------------------------------------------------
+UPDATE u
+SET current_plan = 'Premium'
+FROM dbo.users u
+JOIN #upgrades up
+    ON u.user_id = up.user_id;
+
+-- Done with temp table
+DROP TABLE #upgrades;
+
+
+-- Plan History Backfill
+INSERT INTO dbo.plan_history (
+    plan_change_id,
+    user_id,
+    change_time,
+    from_plan,
+    to_plan,
+    change_reason
+)
+SELECT
+    ROW_NUMBER() OVER (ORDER BY e.user_id),
+    e.user_id,
+    e.event_time,
+    'Free',
+    'Premium',
+    'Recovered From Event Log'
+FROM dbo.events e
+WHERE e.event_type = 'subscription_upgrade'
+AND NOT EXISTS (
+    SELECT 1
+    FROM dbo.plan_history ph
+    WHERE ph.user_id = e.user_id
+);
 
