@@ -27,7 +27,7 @@ User actions generate event logs, which are stored in a relational SQL database 
 ![ERD](docs/cinewave_erd.png)
 
 ### User Behavioral Funnel
-![User Journey](docs/user_journey_flowchart.png)
+![User Journey](docs/users_journey_flowchart.png)
 
 ---
 
