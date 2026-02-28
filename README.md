@@ -61,7 +61,8 @@ Data is visualized using Power BI to surface:
 - Device breakdown
 - Monetization metrics
 
-Screenshots
+![Executive Dashboard](dashboard/cinewave_executive_dashboard.png)
+
 ---
 
 ## Subscription Lifecycle Modeling
